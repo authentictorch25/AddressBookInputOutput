@@ -1,6 +1,9 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookProgram
@@ -47,6 +50,54 @@ namespace AddressBookProgram
                 }
             }
             ReadFilestream();
+        }
+        /// <summary>
+        /// UC 14 : Read the CSV file contents if existing otherwise throw exception
+        /// </summary>
+        /// <param name="addressBook"></param>
+        public static void CSVFileReading(AddressBookMain addressBook)
+        {
+            try
+            {
+                string csvFilePath = @$"C:\Users\akash\OneDrive\Desktop\Standard Input and output\AddressBookProgram\{addressBook.addressBookName}ADDRESSBOOK.csv";
+                /// Initialize a new instance of the StreamReader class
+                var reader = new StreamReader(csvFilePath);
+                /// Creates an new CSV reader using the given TextReader
+                var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+                /// Store into the list the details which we get by GetRecords() method
+                var records = csv.GetRecords<Contact>().ToList();
+                foreach (Contact contact in records)
+                {
+                    Console.WriteLine("\nFullName: " + contact.firstName + " " + contact.lastName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip: " + contact.zip + "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.email + "\n");
+                }
+                /// Close the object so others can use the file residing at the path
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                /// If the file is not present at the path you need to create new file at that path
+                Console.WriteLine(e.Message);
+                Console.WriteLine("File you are trying to access does not exist please create one");
+            }
+
+        }
+
+        /// <summary>
+        /// UC 14 : 
+        /// </summary>
+        /// <param name="addressBook"></param>
+        public static void CSVFileWriting(AddressBookMain addressBook)
+        {
+            string csvFilePath = @$"C:\Users\akash\OneDrive\Desktop\Standard Input and output\AddressBookProgram\{addressBook.addressBookName}ADDRESSBOOK.csv";
+            /// Initialize an instance of StreamWriter class to perform write operation
+            var writer = new StreamWriter(csvFilePath);
+            // Creates an new CSV writer using the given TextWriter
+            var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            /// Writes the records into the csv file
+            csv.WriteRecords(addressBook.contactlist);
+            /// Clears all the buffered data and cache
+            writer.Flush();
+            writer.Close();
         }
     }
 }
