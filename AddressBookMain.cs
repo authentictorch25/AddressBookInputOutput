@@ -252,7 +252,38 @@ namespace AddressBookProgram
         /// <summary>
         /// UC 12 : Sorts the contactList by city, state or zip.
         /// </summary>
-       
+        public void SortByCityStateOrZip()
+        {
+            if (contactlist.Count == 0)
+            {
+                Console.WriteLine("\nNo contact found, please add a contact to display");
+                return;
+            }
+            Console.WriteLine("Enter:\n1-To sort by city name\n2-To sort by state name\n3-To sort by zip");
+            int options = Convert.ToInt32(Console.ReadLine());
+            switch (options)
+            {
+                case 1:
+                    var sortedList = contactlist.OrderBy(person => person.city);
+                    foreach (var contact in sortedList)
+                    {
+                        Console.WriteLine("\nCity: " + contact.city + "\nFullName: " + contact.firstName + " " + contact.lastName + "\nAddress: " + contact.address + "\nState: " + contact.state + "\nZip: " + contact.zip + "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.email + "\n");
+                    }
+                    break;
+                case 2:
+                    sortedList = contactlist.OrderBy(person => person.state);
+                    foreach (var contact in sortedList)
+                    {
+                        Console.WriteLine("\nState: " + contact.state + "\nFullName: " + contact.firstName + " " + contact.lastName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nZip: " + contact.zip + "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.email + "\n");
+                    }
+                    break;
+                case 3:
+                    sortedList = contactlist.OrderBy(person => person.zip);
+                    foreach (var contact in sortedList)
+                    {
+                        Console.WriteLine("\nZip: " + contact.zip + "\nFullName: " + contact.firstName + " " + contact.lastName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.email + "\n");
+                    }
+                    break;
             }
         }
     }
