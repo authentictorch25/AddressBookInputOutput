@@ -8,61 +8,72 @@ namespace AddressBookProgram
         {
             AdressBook adressBook = new AdressBook();
             Console.WriteLine("Welcome to Address Book Program");
-            
+
 
             bool flag = true;
             while (flag)
             {
-                string addressbookName = "";
-                Console.WriteLine("\nEnter:\n1-To add a new address Book\n2-To access an existing address book\n3-To exit");
-                int option = Convert.ToInt32(Console.ReadLine());
-                switch(option)
+                string currentAddressBookName = "";
+                Console.WriteLine("\nEnter:\n1-To add a new address Book\n2-To access an existing address book" +
+                    "\n3-To search person in a state or city across multiple address books\n4-View all persons of a city or state" +
+                    "\n5-To get count of contacts present at a city or state\n6-To exit");
+                int options1 = Convert.ToInt32(Console.ReadLine());
+                switch (options1)
                 {
                     case 1:
                         adressBook.AddAdressBook();
                         break;
                     case 2:
-                        addressbookName = adressBook.ExistingAddressBook();
+                        currentAddressBookName = adressBook.ExistingAddressBook();
                         break;
                     case 3:
+                        adressBook.SearchPersonByCityOrState();
+                        break;
+                    case 4:
+                        AddressBookMain.ViewPeopleByCityOrState();
+                        break;
+                    case 5:
+                        AddressBookMain.GetCountByCityOrState();
+                        break;
+                    case 6:
                         flag = false;
                         break;
                 }
-                if(addressbookName!="")
+                if (currentAddressBookName != "")
                 {
-                    bool flag1 = true;
-                    while(flag1)
+                    bool flag2 = true;
+                    while (flag2)
                     {
-                        Console.WriteLine("Address book:" + addressbookName);
-                        Console.WriteLine("Enter:\n1-To add a new contact\n2-To edit an existing contact\n3-To view an existing contact\n4-To delete a contact\n5-To return to main menu");
-                        int choice = Convert.ToInt32(Console.ReadLine());
-                       
-                        switch(choice)
+                        Console.WriteLine("\nCurrent address book:" + currentAddressBookName);
+                        Console.WriteLine("Enter:\n1-To add a new contact\n2-To edit an existing contact\n3-To search for an existing contact\n4-To delete a contact\n5-To display all contacts in the address book sorted by Name\n6-To display contacts sorted by city,state or zip\n7-To return to main menu");
+                        int options2 = Convert.ToInt32(Console.ReadLine());
+                        switch (options2)
                         {
-                            //Adding the contact to the list
                             case 1:
-                                AdressBook.addressBook[addressbookName].AddContact();
+                                AdressBook.addressBook[currentAddressBookName].AddContact();
                                 break;
-                            //Editing the contact into the list
                             case 2:
-                                AdressBook.addressBook[addressbookName].EditContact();
+                                AdressBook.addressBook[currentAddressBookName].EditContact();
                                 break;
-                            //Viewing the contact of the list
                             case 3:
-                                AdressBook.addressBook[addressbookName].ViewContact();
+                                AdressBook.addressBook[currentAddressBookName].SearchByName();
                                 break;
-                            //Removing the contact from the list
                             case 4:
-                                AdressBook.addressBook[addressbookName].DeleteContact();
+                                AdressBook.addressBook[currentAddressBookName].DeleteContact();
                                 break;
-                            //Exiting the portal
                             case 5:
-                                flag1 = false;
+                                AdressBook.addressBook[currentAddressBookName].SortByName();
                                 break;
+                            case 6:
+                                AdressBook.addressBook[currentAddressBookName].SortByCityStateOrZip();
+                                break;
+                            case 7:
+                                flag2 = false;
+                                break;       
                         }
                     }
                 }
             }
         }
-    }
+    }   
 }
