@@ -135,7 +135,7 @@ namespace AddressBookProgram
         /// UC 15 : Write into the already created Json file or create one and then write
         /// </summary>
         /// <param name="addressBook"></param>
-        public void JSONFileWriting(AddressBookMain addressBook)
+        public static void JSONFileWriting(AddressBookMain addressBook)
         {
             string jsonFilePath = @$"C:\Users\akash\OneDrive\Desktop\Standard Input and output\AddressBookProgram\{addressBook.addressBookName}ADDRESSBOOK.json";
             /// Create an instance of JsonSerializer class
