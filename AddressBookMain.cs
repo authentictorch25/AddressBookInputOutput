@@ -17,7 +17,7 @@ namespace AddressBookProgram
         ///        static TO STORE VALUES ACROSS ALL ADDRESS BOOKS
         /// </summary>
         public static Dictionary<string, List<string>> cityAndStatePersonDictionary = new Dictionary<string, List<string>>();
-        string addressBookName;
+        public string addressBookName;
         public AddressBookMain()
         { }
         public AddressBookMain(string addressBookName)
